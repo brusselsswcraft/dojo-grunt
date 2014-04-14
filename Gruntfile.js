@@ -412,10 +412,29 @@ module.exports = function ( grunt ) {
         },
 
         connect: {
-            server: {
+            /**
+             * The 'dev' server can be used in conjunction with the 'watch' task:
+             *
+             * grunt clean connect:dev watch
+             *
+             * This will enable a watch on the resources, notify the browser in changes, and start
+             * a server on port 8000 pointing to the dev resources.
+             *
+             * The server will stop as soon as the shell is exited.
+             */
+            dev: {
+                options: {
+                    base: '<%= dev_dir %>'
+                }
+            },
+            /**
+             * The 'prod' server just starts a server on the resources at prod_dir, without
+             * any livereload option, and will be kept alive until stopped.
+             */
+            prod: {
                 options: {
                     keepalive: true,
-                    base: 'target/dev'
+                    base: '<%= prod_dir %>'
                 }
             }
         }
