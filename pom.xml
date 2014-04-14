@@ -1,0 +1,19 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>net.nemerosa.dojo</groupId>
+	<artifactId>dojo-grunt</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<packaging>pom</packaging>
+
+	<scm>
+		<connection>scm:git:git@github.com:nemerosa/dojo-grunt.git</connection>
+		<url>scm:git:git@github.com:nemerosa/dojo-grunt.git</url>
+		<developerConnection>scm:git:git@github.com:nemerosa/dojo-grunt.git</developerConnection>
+	</scm>
+
+	<url>https://github.com/nemerosa/dojo-grunt</url>
+
+</project>
