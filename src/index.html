@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html" ng-app="dojo" ng-controller="DojoController">
 
 <head>
     <meta charset="utf-8">
@@ -29,12 +29,12 @@
     </nav>
 	
 	<div class="container">
-		<form class="form-inline">
+		<form class="form-inline" ng-submit="createTask()">
 			<div class="form-group">
 				<label class="sr-only" for="newTask">New task</label>
-				<input type="text" class="form-control" id="newTask" placeholder="New task" />
+				<input ng-model="text" type="text" class="form-control" id="newTask" placeholder="New task" required="required" />
 			</div>
-			<button type="submit" class="btn btn-default">Add</button>
+			<button type="submit" class="btn btn-default" ng-disabled="!text">Add</button>
 		</form>
 		
 		<h3>List of tasks</h3>
@@ -43,18 +43,12 @@
 			<div class="col-md-12">
 				<table class="table table-hover table-striped">
 					<tbody>
-						<tr>
-							<td>Task 1</td>
+						<tr ng-repeat="task in tasks">
+							<td ng-class="{'dojo-task-text-done': task.done}">{{task.text}}</td>
 							<td>
-								<span class="glyphicon glyphicon-ok" title="Complete this task"></span>
-								<span class="glyphicon glyphicon-trask" title="Delete this task"></span>
-							</td>
-						</tr>
-						<tr>
-							<td>Task 2</td>
-							<td>
-								<span class="glyphicon glyphicon-ok" title="Complete this task"></span>
-								<span class="glyphicon glyphicon-trask" title="Delete this task"></span>
+								<span ng-if="!task.done" ng-click="taskStatus(task, true)" class="dojo-task-todo" title="Complete this task"></span>
+								<span ng-if="task.done" ng-click="taskStatus(task, false)" class="dojo-task-done" title="Reopen this task"></span>
+								<span class="dojo-task-delete" ng-click="taskDelete(task)" title="Delete this task"></span>
 							</td>
 						</tr>
 					</tbody>
