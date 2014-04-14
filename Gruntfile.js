@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = function ( grunt ) {
 
     /**
      * Load required Grunt tasks. These are installed based on the versions listed
@@ -148,12 +148,30 @@ module.exports = function (grunt) {
                 files: [
                     {
                         src: [ '<%= vendor_files.fonts%>' ],
-                        dest: '<%= prod_dir %>/app/fonts',
-						cwd: '.',
+                        dest: '<%= prod_dir %>/fonts/',
+                        cwd: '.',
                         expand: true,
-						flatten: true
+                        flatten: true
                     }
                 ]
+            }
+        },
+
+        less: {
+            dev: {
+                options: {
+                },
+                files: [{
+                    '<%= dev_dir %>/app/css/main.css': '<%= src_dir %>/<%= app_files.less %>'
+                }]
+            },
+            prod: {
+                options: {
+                    compress: true
+                },
+                files: [{
+                    '<%= temp_dir %>/css/main.css': '<%= src_dir %>/<%= app_files.less %>'
+                }]
             }
         },
 
@@ -176,26 +194,13 @@ module.exports = function (grunt) {
                     'module.suffix'
                 ],
                 dest: '<%= prod_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.js'
-            }
-        },
-
-        less: {
-            dev: {
-                options: {
-                    paths: ['<%= src_dir %>/<%= dev_dir %>/app/css']
-                },
-                files: [{
-                    '<%= dev_dir %>/app/css/main.css': '<%= src_dir %>/<%= app_files.less %>'
-                }]
             },
-            prod: {
-                options: {
-                    paths: ['<%= src_dir %>/<%= dev_dir %>/app/css'],
-                    compress: true
-                },
-                files: [{
-                    '<%= prod_dir %>/app/css/main.css': '<%= src_dir %>/<%= app_files.less %>'
-                }]
+            prod_css: {
+                src: [
+                    '<%= vendor_files.css %>',
+                    '<%= temp_dir %>/css/**/*.css'
+                ],
+                dest: '<%= prod_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
             }
         },
 
@@ -256,7 +261,7 @@ module.exports = function (grunt) {
 
         /**
          * `ng-min` annotates the sources before minifying. That is, it allows us
-         * to code without the array syntax for AngularJS.
+         * to code without the array syntax.
          */
         ngmin: {
             prod: {
@@ -281,6 +286,8 @@ module.exports = function (grunt) {
                 },
                 files: {
                     '<%= concat.prod_js.dest %>': '<%= concat.prod_js.dest %>'
+                    // TODO Uglify CSS
+                    // '<%= concat.prod_css.dest %>': '<%= concat.prod_css.dest %>'
                 }
             }
         },
@@ -315,9 +322,8 @@ module.exports = function (grunt) {
             prod: {
                 dir: '<%= prod_dir %>',
                 src: [
-                    '<%= concat.prod_js.dest %>',
-                    '<%= vendor_files.css %>',
-                    '<%= prod_dir %>/app/css/**/*.css'
+                    '<%= concat.prod_css.dest %>',
+                    '<%= concat.prod_js.dest %>'
                 ]
             }
         },
@@ -452,9 +458,10 @@ module.exports = function (grunt) {
         'html2js:prod',
         'ngmin:prod',
         'concat:prod_js',
+        'concat:prod_css',
         'uglify:prod',
         'index:prod',
-		'prod_vendor_fonts'
+        'copy:prod_vendor_fonts'
     ]);
 
     /**
@@ -502,5 +509,4 @@ module.exports = function (grunt) {
             }
         });
     });
-
 };
