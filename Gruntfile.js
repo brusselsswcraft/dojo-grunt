@@ -409,6 +409,15 @@ module.exports = function ( grunt ) {
                 files: [ 'src/**/*.less' ],
                 tasks: [ 'less:dev' ]
             }
+        },
+
+        connect: {
+            server: {
+                options: {
+                    keepalive: true,
+                    base: 'target/dev'
+                }
+            }
         }
 
     };
