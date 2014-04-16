@@ -56,9 +56,7 @@ module.exports = {
             'vendor/angular/angular.js',
             'vendor/angular-route/angular-route.js',
             'vendor/angular-sanitize/angular-sanitize.js',
-            'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            'vendor/angular-translate/angular-translate.js',
-            'vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.js'
+            'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js'
         ],
         css: [
         ],
